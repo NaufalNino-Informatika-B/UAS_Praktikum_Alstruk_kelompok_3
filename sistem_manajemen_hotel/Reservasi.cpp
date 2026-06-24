@@ -31,7 +31,7 @@ void tampilkanMenuReservasi() {
                 }
 
                 if (jumlahReservasi >= 5) { 
-                    cout << "\n⚠ Maaf, tidak ada kamar tersedia! Reservasi gagal." << endl;
+                    cout << "\nMaaf, tidak ada kamar tersedia! Reservasi gagal." << endl;
                     break;
                 }
 
