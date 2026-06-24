@@ -1,7 +1,7 @@
 #ifndef CHECKINOUT_H
 #define CHECKINOUT_H
 
-//Deklarasi fungsi utama untuk menu Check-In & Check-Out
+// Fungsi utama untuk mengelola sistem check-in dan check-out
 void tampilkanMenuCheckInOut();
 
 #endif
