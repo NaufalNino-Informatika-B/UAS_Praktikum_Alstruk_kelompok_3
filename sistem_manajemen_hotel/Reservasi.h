@@ -3,16 +3,16 @@
 
 #include <string>
 
-// Merepresentasikan satu data reservasi kamar milik tamu
+// Struktur data Linked List untuk reservasi
 struct NodeReservasi {
     int idReservasi;
     std::string namaTamu;
-    int nomorKamar;
-    std::string tipeKamar;
-    NodeReservasi* next; // Pointer untuk menyambung ke data reservasi berikutnya
+    std::string tanggal;
+    std::string jenisKamar;
+    NodeReservasi* next;
 };
 
-// Deklarasi fungsi utama menu reservasi
+// Deklarasi fungsi utama
 void tampilkanMenuReservasi();
 
 #endif

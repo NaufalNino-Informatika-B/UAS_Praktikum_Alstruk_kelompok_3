@@ -6,39 +6,48 @@ void tampilkanMenuReservasi() {
     using namespace std;
 
     NodeReservasi* head = nullptr;
-    
     int pilihan;
-    int counterID = 1001; // ID otomatis unik, dimulai dari 1001
+    int counterID = 1001; // ID otomatis mulai dari 1001
 
     do {
         cout << "\n=======================================" << endl;
         cout << "       SISTEM RESERVASI KAMAR HOTEL    " << endl;
         cout << "=======================================" << endl;
-        cout << "1. Buat Reservasi Baru (Insert Last)" << endl;
-        cout << "2. Batalkan/Hapus Reservasi (Delete By ID)" << endl;
-        cout << "3. Tampilkan Semua Daftar Reservasi" << endl;
-        cout << "4. Kembali ke Menu Utama" << endl;
+        cout << "1. Lakukan Reservasi (Sesuai Flowchart)" << endl;
+        cout << "2. Tampilkan Semua Daftar Reservasi" << endl;
+        cout << "3. Kembali ke Menu Utama" << endl;
         cout << "=======================================" << endl;
-        cout << "Pilih menu (1-4): ";
+        cout << "Pilih menu (1-3): ";
         cin >> pilihan;
 
         switch (pilihan) {
             case 1: {
+                // Menghitung jumlah kamar terisi di Linked List 
+                int jumlahReservasi = 0;
+                NodeReservasi* hitung = head;
+                while (hitung != nullptr) {
+                    jumlahReservasi++;
+                    hitung = hitung->next;
+                }
+
+                if (jumlahReservasi >= 5) { 
+                    cout << "\n⚠ Maaf, tidak ada kamar tersedia! Reservasi gagal." << endl;
+                    break;
+                }
 
                 NodeReservasi* nodeBaru = new NodeReservasi();
                 nodeBaru->idReservasi = counterID++;
                 nodeBaru->next = nullptr;
 
-                cout << "\n--- BUAT RESERVASI BARU ---" << endl;
-                cout << "ID Reservasi Anda: " << nodeBaru->idReservasi << endl;
-                cout << "Masukkan Nama Tamu: ";
+                cout << "\n--- INPUT DATA RESERVASI ---" << endl;
+                cout << "Masukkan nama: ";
                 cin.ignore();
                 getline(cin, nodeBaru->namaTamu);
-                cout << "Masukkan Nomor Kamar: ";
-                cin >> nodeBaru->nomorKamar;
-                cout << "Masukkan Tipe Kamar (Reguler/VIP/Suite): ";
-                cin >> nodeBaru->tipeKamar;
-
+                cout << "Masukkan tanggal (DD-MM-YYYY): ";
+                getline(cin, nodeBaru->tanggal);
+                cout << "Masukkan jenis kamar: ";
+                getline(cin, nodeBaru->jenisKamar);
+                
                 if (head == nullptr) {
                     head = nodeBaru;
                 } else {
@@ -48,49 +57,12 @@ void tampilkanMenuReservasi() {
                     }
                     temp->next = nodeBaru;
                 }
-                cout << "\nReservasi berhasil dibuat atas nama " << nodeBaru->namaTamu << "!" << endl;
+                cout << "\n BERHASIL RESERVASI dengan ID: " << nodeBaru->idReservasi << endl;
                 break;
             }
 
             case 2: {
-                if (head == nullptr) {
-                    cout << "\nBelum ada data reservasi aktif saat ini." << endl;
-                    break;
-                }
-
-                int idCari;
-                cout << "\nMasukkan ID Reservasi yang ingin dibatalkan: ";
-                cin >> idCari;
-
-                NodeReservasi* temp = head;
-                NodeReservasi* prev = nullptr;
-
-                // Kasus A: Jika data yang mau dihapus berada di paling depan (Head)
-                if (temp != nullptr && temp->idReservasi == idCari) {
-                    head = temp->next; 
-                    delete temp;       
-                    cout << "\nReservasi ID " << idCari << " berhasil dibatalkan." << endl;
-                    break;
-                }
-
-                // Kasus B: Mencari data di urutan tengah atau ujung belakang list
-                while (temp != nullptr && temp->idReservasi != idCari) {
-                    prev = temp;
-                    temp = temp->next;
-                }
-
-                // Jika setelah dicari sampai habis tetap tidak ketemu
-                if (temp == nullptr) {
-                    cout << "\nID Reservasi " << idCari << " tidak ditemukan!" << endl;
-                } else {
-                    prev->next = temp->next;
-                    delete temp; 
-                    cout << "\nReservasi ID " << idCari << " berhasil dibatalkan." << endl;
-                }
-                break;
-            }
-
-            case 3: {
+                //Linked List untuk menampilkan data
                 if (head == nullptr) {
                     cout << "\nTidak ada data reservasi aktif." << endl;
                 } else {
@@ -99,25 +71,24 @@ void tampilkanMenuReservasi() {
                     while (temp != nullptr) {
                         cout << "ID: " << temp->idReservasi 
                              << " | Nama: " << temp->namaTamu 
-                             << " | Kamar: " << temp->nomorKamar 
-                             << " [" << temp->tipeKamar << "]" << endl;
-                        temp = temp->next; 
+                             << " | Tgl: " << temp->tanggal 
+                             << " | Jenis: " << temp->jenisKamar << endl;
+                        temp = temp->next;
                     }
                     cout << "-------------------------------" << endl;
                 }
                 break;
             }
 
-            case 4:
+            case 3:
                 cout << "\nKembali ke menu utama..." << endl;
                 break;
 
             default:
                 cout << "\nPilihan tidak valid, silakan coba lagi." << endl;
         }
-    } while (pilihan != 4);
+    } while (pilihan != 3);
 
-    // Menghapus semua node tersisa saat keluar dari menu 
     while (head != nullptr) {
         NodeReservasi* temp = head;
         head = head->next;
