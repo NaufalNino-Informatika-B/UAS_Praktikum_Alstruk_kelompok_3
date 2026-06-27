@@ -3,7 +3,6 @@
 
 #include <string>
 
-// Struktur data Linked List untuk reservasi
 struct NodeReservasi {
     int idReservasi;
     std::string namaTamu;
@@ -12,7 +11,6 @@ struct NodeReservasi {
     NodeReservasi* next;
 };
 
-// Deklarasi fungsi utama
-void tampilkanMenuReservasi();
+void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID);
 
 #endif

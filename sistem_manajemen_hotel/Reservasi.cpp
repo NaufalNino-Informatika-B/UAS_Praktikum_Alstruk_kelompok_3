@@ -2,18 +2,15 @@
 #include <string>
 #include "Reservasi.h"
 
-void tampilkanMenuReservasi() {
+void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID) {
     using namespace std;
-
-    NodeReservasi* head = nullptr;
     int pilihan;
-    int counterID = 1001; // ID otomatis mulai dari 1001
 
     do {
         cout << "\n=======================================" << endl;
         cout << "       SISTEM RESERVASI KAMAR HOTEL    " << endl;
         cout << "=======================================" << endl;
-        cout << "1. Lakukan Reservasi (Sesuai Flowchart)" << endl;
+        cout << "1. Lakukan Reservasi" << endl;
         cout << "2. Tampilkan Semua Daftar Reservasi" << endl;
         cout << "3. Kembali ke Menu Utama" << endl;
         cout << "=======================================" << endl;
@@ -22,7 +19,6 @@ void tampilkanMenuReservasi() {
 
         switch (pilihan) {
             case 1: {
-                // Menghitung jumlah kamar terisi di Linked List 
                 int jumlahReservasi = 0;
                 NodeReservasi* hitung = head;
                 while (hitung != nullptr) {
@@ -30,7 +26,7 @@ void tampilkanMenuReservasi() {
                     hitung = hitung->next;
                 }
 
-                if (jumlahReservasi >= 5) { 
+                if (jumlahReservasi >= 5) {
                     cout << "\nMaaf, tidak ada kamar tersedia! Reservasi gagal." << endl;
                     break;
                 }
@@ -57,12 +53,11 @@ void tampilkanMenuReservasi() {
                     }
                     temp->next = nodeBaru;
                 }
-                cout << "\n BERHASIL RESERVASI dengan ID: " << nodeBaru->idReservasi << endl;
+                cout << "BERHASIL RESERVASI dengan ID: " << nodeBaru->idReservasi << endl;
                 break;
             }
 
             case 2: {
-                //Linked List untuk menampilkan data
                 if (head == nullptr) {
                     cout << "\nTidak ada data reservasi aktif." << endl;
                 } else {
@@ -88,10 +83,4 @@ void tampilkanMenuReservasi() {
                 cout << "\nPilihan tidak valid, silakan coba lagi." << endl;
         }
     } while (pilihan != 3);
-
-    while (head != nullptr) {
-        NodeReservasi* temp = head;
-        head = head->next;
-        delete temp;
-    }
 }
