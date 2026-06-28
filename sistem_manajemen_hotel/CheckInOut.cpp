@@ -5,7 +5,48 @@
 
 using namespace std;
 
-void tampilkanMenuCheckInOut(NodeReservasi* head) {
+void setCheckIn(NodeReservasi* head, int idCari) {
+    NodeReservasi* temp = head;
+    while (temp != nullptr) {
+        if (temp->idReservasi == idCari) {
+            if (temp->isCheckedIn) {
+                cout << "Reservasi sudah Check-in sebelumnya.\n";
+            } else {
+                temp->isCheckedIn = true;
+                cout << "BERHASIL CHECK-IN. Tamu telah masuk ke dalam kamar.\n";
+            }
+            return;
+        }
+        temp = temp->next;
+    }
+    cout << "ID Reservasi tidak ditemukan! Check-in ditolak.\n";
+}
+
+NodeReservasi* prosesCheckOut(NodeReservasi* head, int idCari) {
+    NodeReservasi* cur = head;
+    NodeReservasi* prev = nullptr;
+    while (cur != nullptr) {
+        if (cur->idReservasi == idCari) {
+            if (!cur->isCheckedIn) {
+                cout << "Tamu belum Check-in, tidak bisa Check-out.\n";
+                return head;
+            }
+            
+            if (prev) prev->next = cur->next;
+            else head = cur->next;
+            
+            cout << "BERHASIL CHECK-OUT. Kamar tipe " << cur->jenisKamar << " telah kosong kembali.\n";
+            delete cur;
+            return head;
+        }
+        prev = cur;
+        cur = cur->next;
+    }
+    cout << "ID Reservasi tidak ditemukan di daftar tamu aktif hotel!\n";
+    return head;
+}
+
+void tampilkanMenuCheckInOut(NodeReservasi*& head) {
     int pilihan;
 
     do {
@@ -30,29 +71,8 @@ void tampilkanMenuCheckInOut(NodeReservasi* head) {
                 int idCari;
                 cout << "\nMasukkan ID Reservasi tamu: ";
                 cin >> idCari;
-
-                bool ditemukan = false;
-                string namaTamu = "";
-                string jenisKamarTamu = "";
                 
-                NodeReservasi* temp = head;
-                while (temp != nullptr) {
-                    if (temp->idReservasi == idCari) {
-                        ditemukan = true;
-                        namaTamu = temp->namaTamu;
-                        jenisKamarTamu = temp->jenisKamar;
-                        break;
-                    }
-                    temp = temp->next;
-                }
-
-                if (!ditemukan) {
-                    cout << "ID Reservasi tidak ditemukan! Check-in ditolak." << endl;
-                    break; 
-                }
-
-                cout << "Tamu ditemukan atas nama: " << namaTamu << " (" << jenisKamarTamu << ")" << endl;
-                cout << "BERHASIL CHECK-IN. Tamu telah masuk ke dalam kamar." << endl;
+                setCheckIn(head, idCari);
                 break;
             }
 
@@ -66,33 +86,12 @@ void tampilkanMenuCheckInOut(NodeReservasi* head) {
                 cout << "\nMasukkan ID Reservasi tamu: ";
                 cin >> idCari;
 
-                bool ditemukan = false;
-                string namaTamu = "";
-                string jenisKamarTamu = "";
-                
-                NodeReservasi* temp = head;
-                while (temp != nullptr) {
-                    if (temp->idReservasi == idCari) {
-                        ditemukan = true;
-                        namaTamu = temp->namaTamu;
-                        jenisKamarTamu = temp->jenisKamar;
-                        break;
-                    }
-                    temp = temp->next;
-                }
-
-                if (!ditemukan) {
-                    cout << "ID Reservasi tidak ditemukan di daftar tamu aktif hotel!" << endl;
-                    break; 
-                }
-
-                cout << "Tamu ditemukan atas nama: " << namaTamu << " (" << jenisKamarTamu << ")" << endl;
                 cout << "Apakah Anda yakin ingin Check-out sekarang? (1 = Ya / 0 = Tidak): ";
                 int konfirmasi;
                 cin >> konfirmasi;
 
                 if (konfirmasi == 1) {
-                    cout << "BERHASIL CHECK-OUT. Kamar tipe " << jenisKamarTamu << " telah kosong kembali." << endl;
+                    head = prosesCheckOut(head, idCari);
                 } else {
                     cout << "Check-out dibatalkan. Status tamu tetap aktif di dalam kamar." << endl;
                 }
