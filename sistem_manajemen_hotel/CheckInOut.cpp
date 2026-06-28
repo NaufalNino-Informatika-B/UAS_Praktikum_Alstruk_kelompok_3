@@ -58,7 +58,13 @@ void tampilkanMenuCheckInOut(NodeReservasi*& head) {
         cout << "3. Kembali ke Menu Utama" << endl;
         cout << "=======================================" << endl;
         cout << "Pilih menu (1-3): ";
-        cin >> pilihan;
+        
+        if (!(cin >> pilihan)) {
+            cout << "Peringatan: Masukkan nomor menu dalam bentuk angka!" << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
 
         switch (pilihan) {
             case 1: {
@@ -70,7 +76,13 @@ void tampilkanMenuCheckInOut(NodeReservasi*& head) {
 
                 int idCari;
                 cout << "\nMasukkan ID Reservasi tamu: ";
-                cin >> idCari;
+                
+                if (!(cin >> idCari)) {
+                    cout << "Peringatan: ID Reservasi harus berupa angka!" << endl;
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    break;
+                }
                 
                 setCheckIn(head, idCari);
                 break;
@@ -84,16 +96,39 @@ void tampilkanMenuCheckInOut(NodeReservasi*& head) {
 
                 int idCari;
                 cout << "\nMasukkan ID Reservasi tamu: ";
-                cin >> idCari;
+                
+                if (!(cin >> idCari)) {
+                    cout << "Peringatan: ID Reservasi harus berupa angka!" << endl;
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    break;
+                }
 
-                cout << "Apakah Anda yakin ingin Check-out sekarang? (1 = Ya / 0 = Tidak): ";
-                int konfirmasi;
+                NodeReservasi* temp = head;
+                bool ditemukan = false;
+                while (temp != nullptr) {
+                    if (temp->idReservasi == idCari) {
+                        ditemukan = true;
+                        break;
+                    }
+                    temp = temp->next;
+                }
+
+                if (!ditemukan) {
+                    cout << "ID Reservasi tidak ditemukan di daftar tamu aktif hotel!\n";
+                    break;
+                }
+
+                char konfirmasi;
+                cout << "Apakah Anda yakin ingin Check-out sekarang? (Y/N): ";
                 cin >> konfirmasi;
 
-                if (konfirmasi == 1) {
+                if (konfirmasi == 'y' || konfirmasi == 'Y') {
                     head = prosesCheckOut(head, idCari);
-                } else {
+                } else if (konfirmasi == 'n' || konfirmasi == 'N') {
                     cout << "Check-out dibatalkan. Status tamu tetap aktif di dalam kamar." << endl;
+                } else {
+                    cout << "Peringatan: Input tidak valid! Masukkan hanya huruf Y atau N." << endl;
                 }
                 break;
             }
