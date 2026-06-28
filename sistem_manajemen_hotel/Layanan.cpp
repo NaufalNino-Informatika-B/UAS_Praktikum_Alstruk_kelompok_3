@@ -103,7 +103,7 @@ void tampilkanMenuLayanan(NodeReservasi* head) {
                     totalBiaya += menuMakanan[pilMakan - 1].harga + menuMinuman[pilMinum - 1].harga;
                     string deskripsiPesanan = "Pesanan " + menuMakanan[pilMakan - 1].nama + " & " + menuMinuman[pilMinum - 1].nama + " (" + labelKamar + ")";
                     antreanLayanan.push(make_pair(tingkatPrioritas, deskripsiPesanan));
-                    cout << "✓ Pesanan makanan & minuman berhasil dimasukkan ke antrean." << endl;
+                    cout << "\n Pesanan makanan & minuman berhasil dimasukkan ke antrean." << endl;
                 } else {
                     cout << "Pilihan tidak valid!" << endl;
                 }
@@ -113,14 +113,14 @@ void tampilkanMenuLayanan(NodeReservasi* head) {
                 string deskripsiLayanan = "Pembersihan Kamar (" + labelKamar + ")";
                 antreanLayanan.push(make_pair(tingkatPrioritas, deskripsiLayanan));
                 totalBiaya += 25000;
-                cout << "✓ Permintaan pembersihan kamar dimasukkan ke antrean." << endl;
+                cout << "\n Permintaan pembersihan kamar dimasukkan ke antrean." << endl;
                 break;
             }
             case 3: {
                 string deskripsiLayanan = "Fasilitas Tambahan (" + labelKamar + ")";
                 antreanLayanan.push(make_pair(tingkatPrioritas, deskripsiLayanan));
                 totalBiaya += 15000;
-                cout << "✓ Permintaan fasilitas tambahan dimasukkan ke antrean." << endl;
+                cout << "\n Permintaan fasilitas tambahan dimasukkan ke antrean." << endl;
                 break;
             }
             case 4:
@@ -133,7 +133,7 @@ void tampilkanMenuLayanan(NodeReservasi* head) {
                         cout << "[Prioritas: " << depan.first << "] " << depan.second << " -> [PERMINTAAN DI PROSES]" << endl;
                         antreanLayanan.pop();
                     }
-                    cout << "✓ Semua antrean layanan selesai diproses berdasarkan prioritas!" << endl;
+                    cout << "\n Semua antrean layanan selesai diproses berdasarkan prioritas!" << endl;
                 }
                 break;
             case 5: {
