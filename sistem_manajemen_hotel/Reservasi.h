@@ -8,6 +8,7 @@ struct NodeReservasi {
     std::string namaTamu;
     std::string tanggal;
     std::string jenisKamar;
+    bool isCheckedIn;
     NodeReservasi* next;
 };
 

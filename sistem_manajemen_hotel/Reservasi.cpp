@@ -33,6 +33,7 @@ void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID) {
 
                 NodeReservasi* nodeBaru = new NodeReservasi();
                 nodeBaru->idReservasi = counterID++;
+                nodeBaru->isCheckedIn = false;
                 nodeBaru->next = nullptr;
 
                 cout << "\n--- INPUT DATA RESERVASI ---" << endl;
