@@ -12,10 +12,11 @@ void tampilkanMenuCheckInOut(NodeReservasi* head) {
         cout << "\n=======================================" << endl;
         cout << "          MENU CHECK-IN / OUT          " << endl;
         cout << "=======================================" << endl;
-        cout << "1. Proses Check-in & Check-out" << endl;
-        cout << "2. Kembali ke Menu Utama" << endl;
+        cout << "1. Check-In" << endl;
+        cout << "2. Check-Out" << endl;
+        cout << "3. Kembali ke Menu Utama" << endl;
         cout << "=======================================" << endl;
-        cout << "Pilih menu (1-2): ";
+        cout << "Pilih menu (1-3): ";
         cin >> pilihan;
 
         switch (pilihan) {
@@ -26,18 +27,19 @@ void tampilkanMenuCheckInOut(NodeReservasi* head) {
                     break;
                 }
 
-                string namaCari;
-                cout << "\nMasukkan nama tamu untuk verifikasi: ";
-                cin.ignore();
-                getline(cin, namaCari);
+                int idCari;
+                cout << "\nMasukkan ID Reservasi tamu: ";
+                cin >> idCari;
 
                 bool ditemukan = false;
+                string namaTamu = "";
                 string jenisKamarTamu = "";
                 
                 NodeReservasi* temp = head;
                 while (temp != nullptr) {
-                    if (temp->namaTamu == namaCari) {
+                    if (temp->idReservasi == idCari) {
                         ditemukan = true;
+                        namaTamu = temp->namaTamu;
                         jenisKamarTamu = temp->jenisKamar;
                         break;
                     }
@@ -45,40 +47,64 @@ void tampilkanMenuCheckInOut(NodeReservasi* head) {
                 }
 
                 if (!ditemukan) {
-                    cout << "Nama tidak ditemukan di daftar reservasi!" << endl;
-                    cout << "Silakan lakukan reservasi kamar terlebih dahulu." << endl;
+                    cout << "ID Reservasi tidak ditemukan! Check-in ditolak." << endl;
                     break; 
                 }
 
-                cout << "Tamu terdaftar dengan tipe kamar: " << jenisKamarTamu << endl;
-                
-                cout << "\n--- LAKUKAN CHECK-IN ---" << endl;
-                cout << "Tamu '" << namaCari << "' berhasil melakukan Check-in dan masuk kamar." << endl;
+                cout << "Tamu ditemukan atas nama: " << namaTamu << " (" << jenisKamarTamu << ")" << endl;
+                cout << "BERHASIL CHECK-IN. Tamu telah masuk ke dalam kamar." << endl;
+                break;
+            }
 
-                prosesCheckOut:
+            case 2: {
+                if (head == nullptr) {
+                    cout << "\nBelum ada tamu aktif di dalam hotel!" << endl;
+                    break;
+                }
+
+                int idCari;
+                cout << "\nMasukkan ID Reservasi tamu: ";
+                cin >> idCari;
+
+                bool ditemukan = false;
+                string namaTamu = "";
+                string jenisKamarTamu = "";
                 
-                cout << "\n--- LAKUKAN CHECK-OUT ---" << endl;
-                cout << "Apakah tamu '" << namaCari << "' ingin Check-out sekarang?" << endl;
-                cout << "Tekan (1 = Ya, konfirmasi keluar / 0 = Tidak, tunda keluar): ";
+                NodeReservasi* temp = head;
+                while (temp != nullptr) {
+                    if (temp->idReservasi == idCari) {
+                        ditemukan = true;
+                        namaTamu = temp->namaTamu;
+                        jenisKamarTamu = temp->jenisKamar;
+                        break;
+                    }
+                    temp = temp->next;
+                }
+
+                if (!ditemukan) {
+                    cout << "ID Reservasi tidak ditemukan di daftar tamu aktif hotel!" << endl;
+                    break; 
+                }
+
+                cout << "Tamu ditemukan atas nama: " << namaTamu << " (" << jenisKamarTamu << ")" << endl;
+                cout << "Apakah Anda yakin ingin Check-out sekarang? (1 = Ya / 0 = Tidak): ";
                 int konfirmasi;
                 cin >> konfirmasi;
 
                 if (konfirmasi == 1) {
-                    cout << "\nBERHASIL CHECK-OUT" << endl;
-                    cout << "Kamar tipe " << jenisKamarTamu << " telah kosong dan dibersihkan." << endl;
+                    cout << "BERHASIL CHECK-OUT. Kamar tipe " << jenisKamarTamu << " telah kosong kembali." << endl;
                 } else {
-                    cout << "\nTamu belum siap Check-out atau status masih aktif di dalam kamar!" << endl;
-                    cout << "Mengembalikan tamu ke status Check-in..." << endl;
-                    goto prosesCheckOut; 
+                    cout << "Check-out dibatalkan. Status tamu tetap aktif di dalam kamar." << endl;
                 }
                 break;
             }
-            case 2:
+
+            case 3:
                 cout << "\nKembali ke menu utama..." << endl;
                 break;
+
             default:
                 cout << "\nPilihan tidak valid!" << endl;
         }
-    } while (pilihan != 2);
+    } while (pilihan != 3);
 }
-
