@@ -2,11 +2,34 @@
 #include <string>
 #include "Reservasi.h"
 
+void tampilkanStatusKamar(NodeReservasi* head) {
+    using namespace std;
+    const int TOTAL_KAMAR = 5;
+    int jumlahDitempati = 0;
+
+    NodeReservasi* temp = head;
+    while (temp != nullptr) {
+        if (temp->isCheckedIn) {
+            jumlahDitempati++;
+        }
+        temp = temp->next;
+    }
+
+    int jumlahKosong = TOTAL_KAMAR - jumlahDitempati;
+
+    cout << "\n--- STATUS KAMAR ---" << endl;
+    cout << "Total kamar: " << TOTAL_KAMAR << endl;
+    cout << "Kosong: " << jumlahKosong << endl;
+    cout << "Sudah ditempati: " << jumlahDitempati << endl;
+    cout << "--------------------" << endl;
+}
+
 void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID) {
     using namespace std;
     int pilihan;
 
     do {
+        tampilkanStatusKamar(head);
         cout << "\n=======================================" << endl;
         cout << "       SISTEM RESERVASI KAMAR HOTEL    " << endl;
         cout << "=======================================" << endl;

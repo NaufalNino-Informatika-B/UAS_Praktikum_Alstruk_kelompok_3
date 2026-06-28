@@ -12,6 +12,7 @@ struct NodeReservasi {
     NodeReservasi* next;
 };
 
+void tampilkanStatusKamar(NodeReservasi* head);
 void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID);
 
 #endif

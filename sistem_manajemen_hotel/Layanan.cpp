@@ -8,15 +8,26 @@
 using namespace std;
 
 void tampilkanMenuLayanan(NodeReservasi* head) {
-    if (head == nullptr) {
-        cout << "\nMaaf, belum ada tamu terdaftar di data Reservasi!" << endl;
-        cout << "Silakan lakukan registrasi di menu Reservasi terlebih dahulu." << endl;
+    NodeReservasi* tempCek = head;
+    bool adaTamuAktif = false;
+
+    while (tempCek != nullptr) {
+        if (tempCek->isCheckedIn) {
+            adaTamuAktif = true;
+            break;
+        }
+        tempCek = tempCek->next;
+    }
+
+    if (!adaTamuAktif) {
+        cout << "\nMaaf, belum ada tamu aktif yang sudah check-in!" << endl;
+        cout << "Silakan lakukan check-in di menu Check In/Out terlebih dahulu." << endl;
         return;
     }
 
     string namaCari;
     cout << "\n=======================================" << endl;
-    cout << "       WELCOME TO ROOM SERVICE SYSTEM  " << endl;
+    cout << "  WELCOME TO ROOM SERVICE SYSTEM  " << endl;
     cout << "=======================================" << endl;
     cout << "Masukkan Nama Tamu Anda: ";
     cin.ignore();
@@ -27,16 +38,16 @@ void tampilkanMenuLayanan(NodeReservasi* head) {
 
     NodeReservasi* temp = head;
     while (temp != nullptr) {
-        if (temp->namaTamu == namaCari) {
+        if (temp->isCheckedIn && temp->namaTamu == namaCari) {
             ditemukan = true;
-            labelKamar = temp->jenisKamar;  
+            labelKamar = temp->jenisKamar;
             break;
         }
         temp = temp->next;
     }
 
     if (!ditemukan) {
-        cout << "Nama tidak terdaftar di daftar reservasi. Akses ditolak!" << endl;
+        cout << "Nama tidak terdaftar di daftar tamu aktif yang sedang check-in. Akses ditolak!" << endl;
         return;
     }
 
@@ -75,7 +86,7 @@ void tampilkanMenuLayanan(NodeReservasi* head) {
         cout << "1. Pesan Makanan & Minuman" << endl;
         cout << "2. Minta Pembersihan Kamar" << endl;
         cout << "3. Minta Fasilitas Tambahan (Handuk/Bantal)" << endl;
-        cout << "4. Cek Antrean & Proses Layanan (Priority Queue)" << endl;
+        cout << "4. Cek Antrean & Proses Layanan" << endl;
         cout << "5. Cek Total Tagihan & Selesai" << endl;
         cout << "=======================================" << endl;
         cout << "Pilih menu (1-5): ";

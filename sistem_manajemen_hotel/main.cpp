@@ -1,11 +1,13 @@
 #include <iostream>
 #include "Reservasi.h"
 #include "CheckInOut.h"
+#include "Layanan.h"
 #include <limits>
 
 using namespace std;
 
-void menuUtama() {
+void menuUtama(NodeReservasi* head) {
+    tampilkanStatusKamar(head);
     cout << "\n======== MENU UTAMA ========\n" << endl;
     cout << "1.Reservasi\n" << endl;
     cout << "2.Check In/Out\n" << endl;
@@ -38,7 +40,7 @@ int main() {
     NodeReservasi* head = nullptr;
     int counterID = 1;
     do {
-        menuUtama();
+        menuUtama(head);
         pilihan = pilihMenu();
         switch (pilihan) {
             case 1:
@@ -51,7 +53,7 @@ int main() {
                 // Panggil fungsi riwayat reservasi
                 break;
             case 4:
-                // Panggil fungsi pelayanan kamar
+                tampilkanMenuLayanan(head);
                 break;
             case 5:
                 cout << "Terima kasih telah menggunakan layanan kami.\n" << endl;

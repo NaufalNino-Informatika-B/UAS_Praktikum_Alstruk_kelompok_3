@@ -46,6 +46,28 @@ NodeReservasi* prosesCheckOut(NodeReservasi* head, int idCari) {
     return head;
 }
 
+void tampilkanDaftarTamuAktif(NodeReservasi* head) {
+    bool adaTamuAktif = false;
+    NodeReservasi* temp = head;
+
+    cout << "\n--- DAFTAR TAMU AKTIF (SUDAH CHECK-IN) ---" << endl;
+    while (temp != nullptr) {
+        if (temp->isCheckedIn) {
+            adaTamuAktif = true;
+            cout << "ID: " << temp->idReservasi
+                 << " | Nama: " << temp->namaTamu
+                 << " | Kamar: " << temp->jenisKamar
+                 << " | Tanggal: " << temp->tanggal << endl;
+        }
+        temp = temp->next;
+    }
+
+    if (!adaTamuAktif) {
+        cout << "Belum ada tamu yang sedang aktif atau sudah check-in." << endl;
+    }
+    cout << "----------------------------------------" << endl;
+}
+
 void tampilkanMenuCheckInOut(NodeReservasi*& head) {
     int pilihan;
 
@@ -55,9 +77,10 @@ void tampilkanMenuCheckInOut(NodeReservasi*& head) {
         cout << "=======================================" << endl;
         cout << "1. Check-In" << endl;
         cout << "2. Check-Out" << endl;
-        cout << "3. Kembali ke Menu Utama" << endl;
+        cout << "3. Tampilkan Daftar Tamu Aktif" << endl;
+        cout << "4. Kembali ke Menu Utama" << endl;
         cout << "=======================================" << endl;
-        cout << "Pilih menu (1-3): ";
+        cout << "Pilih menu (1-4): ";
         
         if (!(cin >> pilihan)) {
             cout << "Peringatan: Masukkan nomor menu dalam bentuk angka!" << endl;
@@ -134,11 +157,15 @@ void tampilkanMenuCheckInOut(NodeReservasi*& head) {
             }
 
             case 3:
+                tampilkanDaftarTamuAktif(head);
+                break;
+
+            case 4:
                 cout << "\nKembali ke menu utama..." << endl;
                 break;
 
             default:
                 cout << "\nPilihan tidak valid!" << endl;
         }
-    } while (pilihan != 3);
+    } while (pilihan != 4);
 }
