@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Riwayat.h"
+#include "Riwayat_Pesanan.h"
 
 void tambahLogRiwayat(NodeRiwayat*& top, std::string nama, std::string jenisAksi, std::string infoWaktu) {
     NodeRiwayat* nodeBaru = new NodeRiwayat();
