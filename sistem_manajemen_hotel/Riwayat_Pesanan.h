@@ -4,13 +4,13 @@
 #include <string>
 
 struct NodeRiwayat {
+    int idReservasi;
     std::string namaTamu;
-    std::string aksi;
-    std::string waktu;
+    std::string jenisKamar;
     NodeRiwayat* next;
 };
 
-void tambahLogRiwayat(NodeRiwayat*& top, std::string nama, std::string jenisAksi, std::string infoWaktu);
-void tampilkanMenuRiwayat(NodeRiwayat* top);
+void tambahKeRiwayat(NodeRiwayat*& headRiwayat, int id, std::string nama, std::string kamar);
+void tampilkanRiwayat(NodeRiwayat* headRiwayat);
 
 #endif
