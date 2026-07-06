@@ -2,6 +2,7 @@
 #include "Reservasi.h"
 #include "CheckInOut.h"
 #include "Layanan.h"
+#include "Riwayat_Pesanan.h"
 #include <limits>
 
 using namespace std;
@@ -50,13 +51,13 @@ int main() {
                 tampilkanMenuCheckInOut(head);
                 break;
             case 3:
-                // Panggil fungsi riwayat reservasi
+                tampilkanRiwayat(headRiwayat);
                 break;
             case 4:
                 tampilkanMenuLayanan(head);
                 break;
             case 5:
-                cout << "Terima kasih telah menggunakan layanan kami.\n" << endl;
+                cout << "menu ditutup.\n" << endl;
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan coba lagi.\n" << endl;

@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
-#include "Riwayat.h"
+#include "Riwayat_Pesanan.h"
 
 using namespace std;
+
+NodeRiwayat* headRiwayat = nullptr;
 
 void tambahKeRiwayat(NodeRiwayat*& headRiwayat, int id, string nama, string kamar) {
     NodeRiwayat* nodeBaru = new NodeRiwayat();

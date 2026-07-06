@@ -10,6 +10,8 @@ struct NodeRiwayat {
     NodeRiwayat* next;
 };
 
+extern NodeRiwayat* headRiwayat;
+
 void tambahKeRiwayat(NodeRiwayat*& headRiwayat, int id, std::string nama, std::string kamar);
 void tampilkanRiwayat(NodeRiwayat* headRiwayat);
 
