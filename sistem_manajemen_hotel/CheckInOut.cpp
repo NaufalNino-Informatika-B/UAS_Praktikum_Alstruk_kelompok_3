@@ -2,7 +2,7 @@
 #include <string>
 #include "CheckInOut.h"
 #include "Reservasi.h"
-#include "Riwayat_Pesanan.h"
+//#include "Riwayat_Pesanan.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ void setCheckIn(NodeReservasi* head, int idCari) {
                 cout << "Reservasi sudah Check-in sebelumnya.\n";
             } else {
                 temp->isCheckedIn = true;
-                tambahKeRiwayat(headRiwayat, temp->idReservasi, temp->namaTamu, temp->jenisKamar);
+                // tambahKeRiwayat(headRiwayat, temp->idReservasi, temp->namaTamu, temp->jenisKamar);
                 cout << "BERHASIL CHECK-IN. Tamu telah masuk ke dalam kamar.\n";
             }
             return;
