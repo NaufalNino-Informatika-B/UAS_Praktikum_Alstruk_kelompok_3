@@ -3,6 +3,6 @@
 
 #include "Reservasi.h"
 
-void tampilkanMenuCheckInOut(NodeReservasi* head);
+void tampilkanMenuCheckInOut(NodeReservasi*& head);
 
 #endif

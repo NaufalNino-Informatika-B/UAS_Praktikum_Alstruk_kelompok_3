@@ -2,11 +2,34 @@
 #include <string>
 #include "Reservasi.h"
 
+void tampilkanStatusKamar(NodeReservasi* head) {
+    using namespace std;
+    const int TOTAL_KAMAR = 5;
+    int jumlahDitempati = 0;
+
+    NodeReservasi* temp = head;
+    while (temp != nullptr) {
+        if (temp->isCheckedIn) {
+            jumlahDitempati++;
+        }
+        temp = temp->next;
+    }
+
+    int jumlahKosong = TOTAL_KAMAR - jumlahDitempati;
+
+    cout << "\n--- STATUS KAMAR ---" << endl;
+    cout << "Total kamar: " << TOTAL_KAMAR << endl;
+    cout << "Kosong: " << jumlahKosong << endl;
+    cout << "Sudah ditempati: " << jumlahDitempati << endl;
+    cout << "--------------------" << endl;
+}
+
 void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID) {
     using namespace std;
     int pilihan;
 
     do {
+        tampilkanStatusKamar(head);
         cout << "\n=======================================" << endl;
         cout << "       SISTEM RESERVASI KAMAR HOTEL    " << endl;
         cout << "=======================================" << endl;
@@ -33,16 +56,50 @@ void tampilkanMenuReservasi(NodeReservasi*& head, int& counterID) {
 
                 NodeReservasi* nodeBaru = new NodeReservasi();
                 nodeBaru->idReservasi = counterID++;
+                nodeBaru->isCheckedIn = false;
                 nodeBaru->next = nullptr;
 
                 cout << "\n--- INPUT DATA RESERVASI ---" << endl;
                 cout << "Masukkan nama: ";
                 cin.ignore();
                 getline(cin, nodeBaru->namaTamu);
-                cout << "Masukkan tanggal (DD-MM-YYYY): ";
-                getline(cin, nodeBaru->tanggal);
-                cout << "Masukkan jenis kamar: ";
-                getline(cin, nodeBaru->jenisKamar);
+
+                int tanggal, bulan, tahun;
+                cout << "Masukkan tanggal (hanya masukan angka): ";
+                cin >> tanggal;
+                while (tanggal < 1 || tanggal > 31) {
+                    cout << "Tanggal tidak valid. Masukkan tanggal antara 1-31: ";
+                    cin >> tanggal;
+                }
+                cout << "Masukkan bulan (masukan antara angka 1 hingga 12): ";
+                cin >> bulan;
+                while (bulan < 1 || bulan > 12) {
+                    cout << "Bulan tidak valid. Masukkan bulan antara 1-12: ";
+                    cin >> bulan;
+                }
+                cout << "Masukkan tahun (contoh: 2023): ";
+                cin >> tahun;
+                while (tahun < 1000 || tahun > 3000) {
+                    cout << "Tahun tidak valid, masukan tahun antara 1000 hingga 3000: ";
+                    cin >> tahun;
+                }
+
+                nodeBaru->tanggal = to_string(tanggal) + "-" + to_string(bulan) + "-" + to_string(tahun);
+
+                int pilihanKamar;
+                cout << "Pilih jenis kamar (1 = Reguler, 2 = VIP): ";
+                cin >> pilihanKamar;
+
+                while (pilihanKamar != 1 && pilihanKamar != 2) {
+                    cout << "Pilihan tidak valid. Masukkan 1 untuk Reguler atau 2 untuk VIP: ";
+                    cin >> pilihanKamar;
+                }
+
+                if (pilihanKamar == 1) {
+                    nodeBaru->jenisKamar = "Reguler";
+                } else {
+                    nodeBaru->jenisKamar = "VIP";
+                }
                 
                 if (head == nullptr) {
                     head = nodeBaru;
